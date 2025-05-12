@@ -1,13 +1,13 @@
 # MDR-Net: Multi-Directional and Rotation-aware Network for Rotated Object Detection
 
-Authors:[Quan Cui](https://github.com/cowqer)\*, [Gaodian Zhou](https://github.com/tist0bsc),[Xiaolin Zhu]
+Authors:[Quan Cui](https://github.com/cowqer)\*, [Gaodian Zhou](https://github.com/tist0bsc), Yan Zhou, Jianxun Li, Xiaolin Zhu, Richard Irampaye.
 
 ## Introduction
 
 This is the official implementation of the paper, MDR-Net: Multi-Directional and Rotation-aware Network for Rotated Object Detection.
-In this paper, we propose a two-stage framework called Multi-Directional and Rotationaware Network(MDR-Net), which consists of three key modules. (1) Gated Pinwheel-shaped
-Convolution (GPC). The GPC enhances the detection of elongated targets aligned along horizontal and vertical axes by adaptively fusing receptive fields in orthogonal directions. (2) Rotated
-Convolution module with Attention-guided routing (RCA). RCA constructs a Multi-Scale Convolutional Attention(MSCA) framework to capture rotation angles and weights, then uses rotational convolution kernels to extract the features, to reduce the feature differences in ships caused by varying orientations. (3)Feature-Aligned Oriented Region Proposal Network (FAORPN). To
+In this paper, we propose a two-stage framework called Multi-Directional and Rotation aware Network(MDR-Net), which consists of three key modules. (1) Gated Pinwheel-shaped
+Convolution (GPC). The GPC enhances the detection of elongated targets aligned along horizontal and vertical axes by adaptively fusing receptive fields in orthogonal directions. (2) Rotated
+Convolution module with Attention-guided routing (RCA). RCA constructs a Multi-Scale Convolutional Attention(MSCA) framework to capture rotation angles and weights, then uses rotational convolution kernels to extract the features, to reduce the feature differences in ships caused by varying orientations. (3)Feature-Aligned Oriented Region Proposal Network (FAORPN). To
 generate proposals that more accurately localize multi-oriented and elongated targets, FAORPN is designed by integrating RCA and GPC through weighted fusion within the ORPN.
 
 ## The Gated Pinwheel-shaped Convolution
@@ -28,9 +28,22 @@ generate proposals that more accurately localize multi-oriented and elongated ta
 ![Architecture](https://github.com/user-attachments/assets/cfe143b9-c074-48bf-b315-9cc8a46e4b13)
 
 
-## Installation
+## Results and models
 
-We ued the MMRotate toolbo, which depends on [PyTorch](https://pytorch.org/), [MMCV](https://github.com/open-mmlab/mmcv) and [MMDetection](https://github.com/open-mmlab/mmdetection).
+DOTA1.0
+| Model         | mAP50 | mAP75 | Batch Size | Config | Download |
+|---------------|--------|--------|------------|--------|----------|
+| ORCNN         | 75.37 | 46.05 | 1×2        | [config](https://github.com/cowqer/MDR-Net/blob/main/configs/oriented_rcnn/oriented_rcnn_r50_fpn_1x_dota_le90.py) | [model (pswd: mdrn)](https://pan.baidu.com/s/1hmVfLerupdak8NbquBw4PA) |
+| MDR-Net       | 75.89 | 48.24 | 1×2        | [config](https://github.com/cowqer/MDR-Net/blob/main/configs/MDR-Net/oriented_rcnn_gatedpc_r50_fpn_1x_dota_le90_msca_adp_rpn.py) | [model (pswd: mdrn)](https://pan.baidu.com/s/1hmVfLerupdak8NbquBw4PA) |
+| MDR-Net (ms)  | 80.58 | 56.61 | 1×2        | [config](https://github.com/cowqer/MDR-Net/blob/main/configs/MDR-Net/oriented_rcnn_gatedpc_r50_fpn_1x_msdota_le90_msca_adp_rpn.py) | [model (pswd: mdrn)](https://pan.baidu.com/s/1fGsQj8Zf6JYWryWzQC3__A) |
+RSSDD 
+| Model    | mAP50  | mAP75 | Batch Size | Config | Download |
+|----------|--------|--------|------------|--------|----------|
+| MDR-Net  | 0.8935 | 41.5   | 1×2        | [config](https://github.com/cowqer/MDR-Net/blob/main/configs/MDR-Net/oriented_rcnn_gpcr50_fpn_6x_ssdd_le90_msca1.py) | [model (pswd: mdrn)](https://pan.baidu.com/s/10ZpDPSaYnr2bGbBieOrNsQ) |
+
+
+## Installation
+We ued the MMRotate toolbox, which depends on [PyTorch](https://pytorch.org/), [MMCV](https://github.com/open-mmlab/mmcv) and [MMDetection](https://github.com/open-mmlab/mmdetection).
 Below are quick steps for installation.
 Please refer to [Install Guide](https://mmrotate.readthedocs.io/en/latest/install.html) for more detailed instruction.
 
@@ -63,7 +76,7 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 - [customize dataset](docs/en/tutorials/customize_dataset.md)
 - [customize model](docs/en/tutorials/customize_models.md)
 - [useful tools](docs/en/tutorials/useful_tools.md)
-- 
+
 ## Usage
 
 ### Training
